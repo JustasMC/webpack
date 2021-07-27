@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-function App() {
+import Header from './components/header'
+import Home from './components/home';
+import Post from './components/posts';
+import Profile from './components/profile';
+import PostItem from './components/postItem';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+        <Header/>
+        <div className="container">
+          <Switch>
+            {/* <Redirect from="/profile" to="/"/> */}
+            <Route path="/posts/:id"  component={PostItem}/>
+            <Route path="/posts"  component={Post}/>
+            <Route path="/profile"  component={Profile}/>
+            <Route path="/" exact component={Home}/>
+
+            <Route render={()=>(
+              <h3>Ooops page not found !!</h3>
+            )}/>
+
+          </Switch>
+        </div>
+    </BrowserRouter>
   );
 }
 
